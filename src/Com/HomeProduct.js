@@ -49,8 +49,8 @@ function HomeProduct() {
       addItemToCart({
         id: product.id,
         name: product.name,
-        price: Number(product.price),
-        image: product.images?.[0]?.url || "/api/placeholder/300/250",
+        price: Number(product.Discounted),
+        image: product.image|| "/api/placeholder/300/250",
       })
     );
   };
@@ -62,10 +62,10 @@ function HomeProduct() {
 
   if (loading) {
     return (
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+      <section className="py-20 bg-gradient-to-br from-blue-50 to-cyan-50">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-amber-500 mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[#3E5E84] mx-auto mb-4"></div>
             <p className="text-gray-500 text-lg">Loading amazing products...</p>
           </div>
         </div>
@@ -74,17 +74,17 @@ function HomeProduct() {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+    <section className="py-20 bg-gradient-to-br from-blue-50 to-cyan-50">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[#3E5E84] to-[#9CC4DC] bg-clip-text text-transparent">
             Best-Sellers of The Season
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
             Discover our most loved furniture pieces that are transforming homes across the country
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-orange-500 mx-auto rounded-full"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#3E5E84] to-[#9CC4DC] mx-auto rounded-full"></div>
         </div>
 
         {/* Products Grid */}
@@ -102,12 +102,13 @@ function HomeProduct() {
             return (
               <div
                 key={product.id}
-                className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 cursor-pointer"
+                className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 cursor-pointer border border-gray-100 hover:border-[#9CC4DC]/50"
                 style={{ animationDelay: `${index * 100}ms` }}
+                 onClick={() => router.push(`/ProductDetailsPage/${product.id}`)}
               >
                 <div className="relative overflow-hidden">
                   <img
-                    src={imageUrl}
+                    src={product.image}
                     alt={product.name}
                     className="h-64 w-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
@@ -120,14 +121,14 @@ function HomeProduct() {
                   )}
 
                   {/* Action Buttons Overlay */}
-                  <div className="absolute inset-0  bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                  <div className="absolute inset-0   group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                     <div className="flex space-x-3 transform translate-y-10 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      <button className="p-3 bg-white rounded-full text-gray-700 hover:text-red-500 transition-colors shadow-lg">
+                      <button className="p-3 bg-white rounded-full text-gray-700 hover:text-red-500 transition-colors shadow-lg hover:shadow-xl transform hover:scale-110">
                         <Heart className="w-5 h-5" />
                       </button>
                       <button 
                         onClick={() => router.push(`/ProductDetailsPage/${product.id}`)}
-                        className="p-3 bg-white rounded-full text-gray-700 hover:text-amber-600 transition-colors shadow-lg"
+                        className="p-3 bg-white rounded-full text-gray-700 hover:text-[#3E5E84] transition-colors shadow-lg hover:shadow-xl transform hover:scale-110"
                       >
                         <Eye className="w-5 h-5" />
                       </button>
@@ -139,7 +140,7 @@ function HomeProduct() {
                   className="p-6"
                   onClick={() => router.push(`/ProductDetailsPage/${product.id}`)}
                 >
-                  <h3 className="font-bold text-lg mb-2 text-gray-900 group-hover:text-amber-600 transition-colors line-clamp-1">
+                  <h3 className="font-bold text-lg mb-2 text-gray-900 group-hover:text-[#3E5E84] transition-colors line-clamp-1">
                     {product.name}
                   </h3>
                   <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
@@ -148,14 +149,14 @@ function HomeProduct() {
                   
                   <div className="flex items-center justify-between">
                     <div className="flex flex-col">
-                      <span className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
-                        ₹{Number(product.price).toLocaleString()}
+                      <span className="text-2xl font-bold bg-gradient-to-r from-[#3E5E84] to-[#9CC4DC] bg-clip-text text-transparent">
+                        ₹{Number(product.Discounted).toLocaleString()}
                       </span>
-                      {discountText && (
+                    
                         <span className="text-sm text-gray-400 line-through">
-                          ₹{Math.round(Number(product.price) * 1.25).toLocaleString()}
+                          ₹{product.price}
                         </span>
-                      )}
+                    
                     </div>
                     
                     <button
@@ -164,7 +165,7 @@ function HomeProduct() {
                       className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-2 ${
                         productInCart
                           ? "bg-green-500 text-white cursor-not-allowed"
-                          : "bg-gradient-to-r from-amber-500 to-orange-600 text-white hover:from-amber-600 hover:to-orange-700 hover:shadow-lg transform hover:scale-105"
+                          : "bg-gradient-to-r from-[#3E5E84] to-[#9CC4DC] text-white hover:from-[#2E4A6B] hover:to-[#7FB2D3] hover:shadow-lg transform hover:scale-105"
                       }`}
                     >
                       <ShoppingCart className="w-4 h-4" />
@@ -183,7 +184,7 @@ function HomeProduct() {
         <div className="text-center mt-16">
           <button
             onClick={() => router.push('/viewall')}
-            className="group bg-gradient-to-r from-amber-500 to-orange-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:from-amber-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 flex items-center space-x-3 mx-auto"
+            className="group bg-gradient-to-r from-[#3E5E84] to-[#9CC4DC] text-white px-8 py-4 rounded-xl font-bold text-lg hover:from-[#2E4A6B] hover:to-[#7FB2D3] transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 flex items-center space-x-3 mx-auto"
           >
             <span>View All Products</span>
             <ArrowRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
@@ -192,6 +193,10 @@ function HomeProduct() {
             Discover over 1000+ premium furniture pieces
           </p>
         </div>
+
+        {/* Decorative Elements */}
+        <div className="absolute top-10 left-10 w-20 h-20 bg-[#9CC4DC]/10 rounded-full blur-xl"></div>
+        <div className="absolute bottom-10 right-10 w-32 h-32 bg-[#3E5E84]/10 rounded-full blur-xl"></div>
       </div>
 
       <style jsx>{`

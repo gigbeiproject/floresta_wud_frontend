@@ -387,10 +387,10 @@ function LoginRegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
+    <div className="min-h-screen flex"style={{background: 'linear-gradient(135deg, rgba(62, 94, 132, 0.9) 0%, rgba(62, 94, 132, 0.8) 100%)'}}>
       {/* Left Side - Image */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-600/90 to-orange-700/90 z-10"></div>
+        <div className="absolute inset-0 z-10" style={{background: 'linear-gradient(135deg, #9CC4DC 0%, #B8D4E8 50%, #9CC4DC 100%)'}}></div>
         <div 
           className="w-full h-full bg-cover bg-center transform hover:scale-105 transition-transform duration-700"
           style={{
@@ -402,13 +402,13 @@ function LoginRegisterPage() {
         <div className="absolute inset-0 z-20 flex flex-col justify-center items-center text-white p-12">
           <div className="text-center max-w-lg">
             <div className="mb-8">
-              <div className="text-5xl font-bold mb-4 flex items-center justify-center space-x-3">
-                <span className="animate-bounce">🌳</span>
-                <span className="bg-gradient-to-r from-white to-amber-100 bg-clip-text text-transparent">
+              <div className=" flex flex-col text-5xl font-bold mb-4 flex items-center justify-center space-x-3">
+                    <img className="w-60 h-" src="/floresta wud logo 2.png"></img>
+                {/* <span className="bg-[#3E5E84] mt-10 bg-clip-text text-transparent">
                   florestawud
-                </span>
+                </span> */}
               </div>
-              <p className="text-xl text-amber-100 font-light">
+              <p className="text-xl text-[#3E5E84] font-light">
                 Transform Your Home with Premium Furniture
               </p>
             </div>
@@ -416,21 +416,21 @@ function LoginRegisterPage() {
             <div className="space-y-6">
               <div className="flex items-center space-x-4 bg-white/10 backdrop-blur-sm rounded-lg p-4">
                 <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                  <Shield className="text-white w-6 h-6" />
+                  <Shield className="text-[#3E5E84] w-6 h-6" />
                 </div>
                 <div className="text-left">
-                  <h3 className="font-semibold">Secure Shopping</h3>
-                  <p className="text-amber-100 text-sm">Safe & encrypted transactions</p>
+                  <h3 className="font-semibold text-[#3E5E84]">Secure Shopping</h3>
+                  <p className=" text-sm text-[#3E5E84]">Safe & encrypted transactions</p>
                 </div>
               </div>
               
               <div className="flex items-center space-x-4 bg-white/10 backdrop-blur-sm rounded-lg p-4">
                 <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                  <Sparkles className="text-white w-6 h-6" />
+                  <Sparkles className="text-[#3E5E84] w-6 h-6" />
                 </div>
                 <div className="text-left">
-                  <h3 className="font-semibold">Premium Quality</h3>
-                  <p className="text-amber-100 text-sm">Handcrafted wooden furniture</p>
+                  <h3 className="font-semibold text-[#3E5E84]">Premium Quality</h3>
+                  <p className="text-[#3E5E84] text-sm">Handcrafted wooden furniture</p>
                 </div>
               </div>
             </div>
@@ -451,7 +451,10 @@ function LoginRegisterPage() {
                 else if (step === 'registerOtp') setStep('form');
                 else resetForm();
               }}
-              className="mb-6 flex items-center space-x-2 text-gray-600 hover:text-amber-600 transition-colors"
+              className="mb-6 flex items-center space-x-2 text-gray-600 transition-colors"
+              style={{'&:hover': {color: '#3E5E84'}}}
+              onMouseEnter={(e) => e.target.style.color = '#3E5E84'}
+              onMouseLeave={(e) => e.target.style.color = '#6B7280'}
             >
               <ArrowLeft size={20} />
               <span>Back</span>
@@ -465,9 +468,12 @@ function LoginRegisterPage() {
                 onClick={() => switchTab('login')}
                 className={`flex-1 py-3 px-6 rounded-md font-medium transition-all duration-300 ${
                   activeTab === 'login'
-                    ? 'bg-white text-amber-600 shadow-md transform scale-105'
-                    : 'text-gray-600 hover:text-amber-600'
+                    ? 'bg-white shadow-md transform scale-105'
+                    : 'text-gray-600'
                 }`}
+                style={activeTab === 'login' ? {color: '#3E5E84'} : {}}
+                onMouseEnter={(e) => !activeTab === 'login' && (e.target.style.color = '#3E5E84')}
+                onMouseLeave={(e) => !activeTab === 'login' && (e.target.style.color = '#6B7280')}
               >
                 Login
               </button>
@@ -475,19 +481,22 @@ function LoginRegisterPage() {
                 onClick={() => switchTab('register')}
                 className={`flex-1 py-3 px-6 rounded-md font-medium transition-all duration-300 ${
                   activeTab === 'register'
-                    ? 'bg-white text-amber-600 shadow-md transform scale-105'
-                    : 'text-gray-600 hover:text-amber-600'
+                    ? 'bg-white shadow-md transform scale-105'
+                    : 'text-gray-600'
                 }`}
+                style={activeTab === 'register' ? {color: '#3E5E84'} : {}}
+                onMouseEnter={(e) => !activeTab === 'register' && (e.target.style.color = '#3E5E84')}
+                onMouseLeave={(e) => !activeTab === 'register' && (e.target.style.color = '#6B7280')}
               >
                 Register
               </button>
             </div>
-          )}
+          )}  
 
           {/* Form Header */}
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              {step === 'form' && `Welcome ${activeTab === 'login' ? 'Back!' : 'to WoodenStreet'}`}
+              {step === 'form' && `Welcome ${activeTab === 'login' ? 'Back!' : 'to florestawud'}`}
               {step === 'registerOtp' && 'Verify Your Number'}
               {step === 'forgotPassword' && 'Forgot Password?'}
               {step === 'resetOtp' && 'Enter Reset Code'}
@@ -535,8 +544,11 @@ function LoginRegisterPage() {
                       className={`w-full pl-11 pr-4 py-3 border-2 rounded-lg focus:outline-none transition-all duration-300 ${
                         errors.name 
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200' 
-                          : 'border-gray-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                          : 'border-gray-300 focus:ring-2'
                       }`}
+                      style={!errors.name ? {'&:focus': {borderColor: '#3E5E84', ringColor: 'rgba(62, 94, 132, 0.2)'}} : {}}
+                      onFocus={(e) => !errors.name && (e.target.style.borderColor = '#3E5E84')}
+                      onBlur={(e) => !errors.name && (e.target.style.borderColor = '#D1D5DB')}
                       placeholder="Enter your full name"
                     />
                   </div>
@@ -561,8 +573,10 @@ function LoginRegisterPage() {
                     className={`w-full pl-20 pr-4 py-3 border-2 rounded-lg focus:outline-none transition-all duration-300 ${
                       errors.phone 
                         ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200' 
-                        : 'border-gray-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                        : 'border-gray-300 focus:ring-2'
                     }`}
+                    onFocus={(e) => !errors.phone && (e.target.style.borderColor = '#3E5E84')}
+                    onBlur={(e) => !errors.phone && (e.target.style.borderColor = '#D1D5DB')}
                     placeholder="Enter 10-digit mobile number"
                     maxLength="10"
                   />
@@ -585,8 +599,10 @@ function LoginRegisterPage() {
                       className={`w-full pl-11 pr-4 py-3 border-2 rounded-lg focus:outline-none transition-all duration-300 ${
                         errors.email 
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200' 
-                          : 'border-gray-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                          : 'border-gray-300 focus:ring-2'
                       }`}
+                      onFocus={(e) => !errors.email && (e.target.style.borderColor = '#3E5E84')}
+                      onBlur={(e) => !errors.email && (e.target.style.borderColor = '#D1D5DB')}
                       placeholder="Enter your email address"
                     />
                   </div>
@@ -608,8 +624,10 @@ function LoginRegisterPage() {
                     className={`w-full pl-11 pr-12 py-3 border-2 rounded-lg focus:outline-none transition-all duration-300 ${
                       errors.password 
                         ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200' 
-                        : 'border-gray-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                        : 'border-gray-300 focus:ring-2'
                     }`}
+                    onFocus={(e) => !errors.password && (e.target.style.borderColor = '#3E5E84')}
+                    onBlur={(e) => !errors.password && (e.target.style.borderColor = '#D1D5DB')}
                     placeholder="Enter your password"
                   />
                   <button
@@ -638,8 +656,10 @@ function LoginRegisterPage() {
                       className={`w-full pl-11 pr-12 py-3 border-2 rounded-lg focus:outline-none transition-all duration-300 ${
                         errors.confirmPassword 
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200' 
-                          : 'border-gray-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                          : 'border-gray-300 focus:ring-2'
                       }`}
+                      onFocus={(e) => !errors.confirmPassword && (e.target.style.borderColor = '#3E5E84')}
+                      onBlur={(e) => !errors.confirmPassword && (e.target.style.borderColor = '#D1D5DB')}
                       placeholder="Confirm your password"
                     />
                     <button
@@ -660,7 +680,10 @@ function LoginRegisterPage() {
                   <button
                     type="button"
                     onClick={goToForgotPassword}
-                    className="text-amber-600 hover:text-amber-700 text-sm font-medium"
+                    className="text-sm font-medium transition-colors"
+                    style={{color: '#3E5E84'}}
+                    onMouseEnter={(e) => e.target.style.color = '#2A4A6B'}
+                    onMouseLeave={(e) => e.target.style.color = '#3E5E84'}
                   >
                     Forgot Password?
                   </button>
@@ -671,7 +694,13 @@ function LoginRegisterPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 px-6 rounded-lg font-semibold hover:from-amber-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                className="w-full text-white py-3 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                style={{
+                  background: 'linear-gradient(135deg, #3E5E84 0%, #4A6B91 100%)',
+                  boxShadow: '0 4px 15px rgba(62, 94, 132, 0.3)'
+                }}
+                onMouseEnter={(e) => !isLoading && (e.target.style.background = 'linear-gradient(135deg, #2A4A6B 0%, #3E5E84 100%)')}
+                onMouseLeave={(e) => !isLoading && (e.target.style.background = 'linear-gradient(135deg, #3E5E84 0%, #4A6B91 100%)')}
               >
                 {isLoading ? (
                   <>
@@ -698,7 +727,16 @@ function LoginRegisterPage() {
                       value={value}
                       onChange={(e) => handleOtpChange(index, e.target.value)}
                       onKeyDown={(e) => handleOtpKeyDown(index, e)}
-                      className="w-12 h-12 text-center text-xl font-bold border-2 border-gray-300 rounded-lg focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-200 transition-all duration-300"
+                      className="w-12 h-12 text-center text-xl font-bold border-2 border-gray-300 rounded-lg focus:outline-none transition-all duration-300"
+                      style={{'&:focus': {borderColor: '#3E5E84', ringColor: 'rgba(62, 94, 132, 0.2)', ring: '2px'}}}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#3E5E84';
+                        e.target.style.boxShadow = '0 0 0 2px rgba(62, 94, 132, 0.2)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#D1D5DB';
+                        e.target.style.boxShadow = 'none';
+                      }}
                       maxLength="1"
                     />
                   ))}
@@ -718,7 +756,10 @@ function LoginRegisterPage() {
                     type="button"
                     onClick={resendOtp}
                     disabled={isLoading}
-                    className="text-amber-600 hover:text-amber-700 font-medium underline disabled:opacity-50"
+                    className="font-medium underline disabled:opacity-50 transition-colors"
+                    style={{color: '#3E5E84'}}
+                    onMouseEnter={(e) => !isLoading && (e.target.style.color = '#2A4A6B')}
+                    onMouseLeave={(e) => !isLoading && (e.target.style.color = '#3E5E84')}
                   >
                     {isLoading ? 'Sending...' : 'Resend OTP'}
                   </button>
@@ -728,7 +769,13 @@ function LoginRegisterPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 px-6 rounded-lg font-semibold hover:from-amber-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                className="w-full text-white py-3 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                style={{
+                  background: 'linear-gradient(135deg, #3E5E84 0%, #4A6B91 100%)',
+                  boxShadow: '0 4px 15px rgba(62, 94, 132, 0.3)'
+                }}
+                onMouseEnter={(e) => !isLoading && (e.target.style.background = 'linear-gradient(135deg, #2A4A6B 0%, #3E5E84 100%)')}
+                onMouseLeave={(e) => !isLoading && (e.target.style.background = 'linear-gradient(135deg, #3E5E84 0%, #4A6B91 100%)')}
               >
                 {isLoading ? (
                   <>
@@ -767,8 +814,10 @@ function LoginRegisterPage() {
                     className={`w-full pl-20 pr-4 py-3 border-2 rounded-lg focus:outline-none transition-all duration-300 ${
                       errors.phone 
                         ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200' 
-                        : 'border-gray-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                        : 'border-gray-300 focus:ring-2'
                     }`}
+                    onFocus={(e) => !errors.phone && (e.target.style.borderColor = '#3E5E84')}
+                    onBlur={(e) => !errors.phone && (e.target.style.borderColor = '#D1D5DB')}
                     placeholder="Enter your mobile number"
                     maxLength="10"
                   />
@@ -779,7 +828,13 @@ function LoginRegisterPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 px-6 rounded-lg font-semibold hover:from-amber-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                className="w-full text-white py-3 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                style={{
+                  background: 'linear-gradient(135deg, #3E5E84 0%, #4A6B91 100%)',
+                  boxShadow: '0 4px 15px rgba(62, 94, 132, 0.3)'
+                }}
+                onMouseEnter={(e) => !isLoading && (e.target.style.background = 'linear-gradient(135deg, #2A4A6B 0%, #3E5E84 100%)')}
+                onMouseLeave={(e) => !isLoading && (e.target.style.background = 'linear-gradient(135deg, #3E5E84 0%, #4A6B91 100%)')}
               >
                 {isLoading ? (
                   <>
@@ -809,7 +864,15 @@ function LoginRegisterPage() {
                       value={value}
                       onChange={(e) => handleOtpChange(index, e.target.value)}
                       onKeyDown={(e) => handleOtpKeyDown(index, e)}
-                      className="w-12 h-12 text-center text-xl font-bold border-2 border-gray-300 rounded-lg focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-200 transition-all duration-300"
+                      className="w-12 h-12 text-center text-xl font-bold border-2 border-gray-300 rounded-lg focus:outline-none transition-all duration-300"
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#3E5E84';
+                        e.target.style.boxShadow = '0 0 0 2px rgba(62, 94, 132, 0.2)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#D1D5DB';
+                        e.target.style.boxShadow = 'none';
+                      }}
                       maxLength="1"
                     />
                   ))}
@@ -829,7 +892,10 @@ function LoginRegisterPage() {
                     type="button"
                     onClick={resendOtp}
                     disabled={isLoading}
-                    className="text-amber-600 hover:text-amber-700 font-medium underline disabled:opacity-50"
+                    className="font-medium underline disabled:opacity-50 transition-colors"
+                    style={{color: '#3E5E84'}}
+                    onMouseEnter={(e) => !isLoading && (e.target.style.color = '#2A4A6B')}
+                    onMouseLeave={(e) => !isLoading && (e.target.style.color = '#3E5E84')}
                   >
                     {isLoading ? 'Sending...' : 'Resend Code'}
                   </button>
@@ -839,7 +905,13 @@ function LoginRegisterPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 px-6 rounded-lg font-semibold hover:from-amber-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                className="w-full text-white py-3 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                style={{
+                  background: 'linear-gradient(135deg, #3E5E84 0%, #4A6B91 100%)',
+                  boxShadow: '0 4px 15px rgba(62, 94, 132, 0.3)'
+                }}
+                onMouseEnter={(e) => !isLoading && (e.target.style.background = 'linear-gradient(135deg, #2A4A6B 0%, #3E5E84 100%)')}
+                onMouseLeave={(e) => !isLoading && (e.target.style.background = 'linear-gradient(135deg, #3E5E84 0%, #4A6B91 100%)')}
               >
                 {isLoading ? (
                   <>
@@ -873,8 +945,10 @@ function LoginRegisterPage() {
                     className={`w-full pl-11 pr-12 py-3 border-2 rounded-lg focus:outline-none transition-all duration-300 ${
                       errors.newPassword 
                         ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200' 
-                        : 'border-gray-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                        : 'border-gray-300 focus:ring-2'
                     }`}
+                    onFocus={(e) => !errors.newPassword && (e.target.style.borderColor = '#3E5E84')}
+                    onBlur={(e) => !errors.newPassword && (e.target.style.borderColor = '#D1D5DB')}
                     placeholder="Enter new password"
                   />
                   <button
@@ -902,8 +976,10 @@ function LoginRegisterPage() {
                     className={`w-full pl-11 pr-12 py-3 border-2 rounded-lg focus:outline-none transition-all duration-300 ${
                       errors.confirmNewPassword 
                         ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200' 
-                        : 'border-gray-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200'
+                        : 'border-gray-300 focus:ring-2'
                     }`}
+                    onFocus={(e) => !errors.confirmNewPassword && (e.target.style.borderColor = '#3E5E84')}
+                    onBlur={(e) => !errors.confirmNewPassword && (e.target.style.borderColor = '#D1D5DB')}
                     placeholder="Confirm new password"
                   />
                   <button
@@ -920,7 +996,13 @@ function LoginRegisterPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 px-6 rounded-lg font-semibold hover:from-amber-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                className="w-full text-white py-3 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                style={{
+                  background: 'linear-gradient(135deg, #3E5E84 0%, #4A6B91 100%)',
+                  boxShadow: '0 4px 15px rgba(62, 94, 132, 0.3)'
+                }}
+                onMouseEnter={(e) => !isLoading && (e.target.style.background = 'linear-gradient(135deg, #2A4A6B 0%, #3E5E84 100%)')}
+                onMouseLeave={(e) => !isLoading && (e.target.style.background = 'linear-gradient(135deg, #3E5E84 0%, #4A6B91 100%)')}
               >
                 {isLoading ? (
                   <>
@@ -951,7 +1033,13 @@ function LoginRegisterPage() {
               </p>
               <button
                 onClick={resetForm}
-                className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 px-6 rounded-lg font-semibold hover:from-amber-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all duration-300"
+                className="w-full text-white py-3 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300"
+                style={{
+                  background: 'linear-gradient(135deg, #3E5E84 0%, #4A6B91 100%)',
+                  boxShadow: '0 4px 15px rgba(62, 94, 132, 0.3)'
+                }}
+                onMouseEnter={(e) => (e.target.style.background = 'linear-gradient(135deg, #2A4A6B 0%, #3E5E84 100%)')}
+                onMouseLeave={(e) => (e.target.style.background = 'linear-gradient(135deg, #3E5E84 0%, #4A6B91 100%)')}
               >
                 Back to Login
               </button>

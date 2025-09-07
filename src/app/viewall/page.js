@@ -17,11 +17,13 @@
     ArrowLeft,
     X
     } from "lucide-react";
+import Image from "next/image";
 
     function ProductsPage() {
     const router = useRouter();
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
     const [sortBy, setSortBy] = useState("name");
@@ -45,10 +47,18 @@
     const cartItems = cart.items;
 
     // Categories for filtering
-    const categories = [
-        "Living Room", "Bedroom", "Dining Room", "Study Room", 
-        "Kids Room", "Office", "Outdoor", "Home Decor"
-    ];
+    useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("/api/categories");
+        const data = await res.json();
+        if (data.success) setCategories(data.categories);
+      } catch (err) {
+        console.error("Failed to fetch categories:", err);
+      }
+    };
+    fetchCategories();
+  }, []);
 
     // Fetch all products
     useEffect(() => {
@@ -82,11 +92,13 @@
         }
 
         // Category filter
-        if (filters.category.length > 0) {
-        filtered = filtered.filter(product =>
-            filters.category.includes(product.categoryName)
-        );
-        }
+      // Category filter
+if (filters.category.length > 0) {
+  filtered = filtered.filter(product =>
+    filters.category.includes(product.categoryId) // ✅ match by id, not name
+  );
+}
+
 
         // Price range filter
         filtered = filtered.filter(product =>
@@ -147,21 +159,15 @@
     };
 
     // Handle filter changes
-    const handleFilterChange = (filterType, value) => {
-        setFilters(prev => {
-        const newFilters = { ...prev };
-        if (filterType === "category" || filterType === "discount") {
-            if (newFilters[filterType].includes(value)) {
-            newFilters[filterType] = newFilters[filterType].filter(item => item !== value);
-            } else {
-            newFilters[filterType] = [...newFilters[filterType], value];
-            }
-        } else {
-            newFilters[filterType] = value;
-        }
-        return newFilters;
-        });
-    };
+    const handleFilterChange = (type, value) => {
+  setFilters((prev) => {
+    const updated = prev[type].includes(value)
+      ? prev[type].filter((v) => v !== value) // remove if already selected
+      : [...prev[type], value];              // add if not selected
+    return { ...prev, [type]: updated };
+  });
+};
+
 
     // Clear all filters
     const clearAllFilters = () => {
@@ -279,17 +285,18 @@
                 <div className="mb-6">
                     <label className="block text-sm font-semibold mb-2">Categories</label>
                     <div className="space-y-2 max-h-48 overflow-y-auto">
-                    {categories.map((category) => (
-                        <label key={category} className="flex items-center">
-                        <input
-                            type="checkbox"
-                            checked={filters.category.includes(category)}
-                            onChange={() => handleFilterChange("category", category)}
-                            className="rounded border-gray-300 text-amber-600 focus:ring-amber-500"
-                        />
-                        <span className="ml-2 text-sm">{category}</span>
-                        </label>
-                    ))}
+                   {categories.map((category) => (
+  <label key={category.id} className="flex items-center">
+  <input
+  type="checkbox"
+  checked={filters.category.includes(category.id)} 
+  onChange={() => handleFilterChange("category", category.id)}
+/>
+<span>{category.name}</span>
+
+  </label>
+))}
+
                     </div>
                 </div>
 
@@ -364,43 +371,21 @@
 
                     {/* Active Filters */}
                     <div className="hidden md:flex items-center space-x-2">
-                        {(filters.category.length > 0 || filters.discount.length > 0 || searchQuery) && (
-                        <div className="flex flex-wrap gap-2">
-                            {filters.category.map(category => (
-                            <span key={category} className="bg-amber-100 text-amber-800 px-2 py-1 rounded-full text-xs font-semibold flex items-center">
-                                {category}
-                                <button
-                                onClick={() => handleFilterChange("category", category)}
-                                className="ml-1 hover:text-amber-600"
-                                >
-                                <X className="w-3 h-3" />
-                                </button>
-                            </span>
-                            ))}
-                            {filters.discount.map(discount => (
-                            <span key={discount} className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-semibold flex items-center">
-                                {discount === "PERCENT_20" ? "20% OFF" : "30% OFF"}
-                                <button
-                                onClick={() => handleFilterChange("discount", discount)}
-                                className="ml-1 hover:text-red-600"
-                                >
-                                <X className="w-3 h-3" />
-                                </button>
-                            </span>
-                            ))}
-                            {searchQuery && (
-                            <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold flex items-center">
-                                Search: {searchQuery}
-                                <button
-                                onClick={() => setSearchQuery("")}
-                                className="ml-1 hover:text-blue-600"
-                                >
-                                <X className="w-3 h-3" />
-                                </button>
-                            </span>
-                            )}
-                        </div>
-                        )}
+                    {filters.category.map(categoryId => {
+  const cat = categories.find(c => c.id === categoryId);
+  return (
+    <span key={categoryId} className="bg-amber-100 text-amber-800 px-2 py-1 rounded-full text-xs font-semibold flex items-center">
+      {cat ? cat.name : categoryId}
+      <button
+        onClick={() => handleFilterChange("category", categoryId)}
+        className="ml-1 hover:text-amber-600"
+      >
+        <X className="w-3 h-3" />
+      </button>
+    </span>
+  );
+})}
+
                     </div>
                     </div>
 
@@ -459,8 +444,8 @@
                             onClick={() => router.push(`/ProductDetailsPage/${product.id}`)}
                             >
                             <div className="relative w-48 h-48 flex-shrink-0">
-                                <img
-                                src={imageUrl}
+                                <Image
+                                src={product.imageUrl}
                                 alt={product.name}
                                 className="w-full h-full object-cover"
                                 />
@@ -519,11 +504,13 @@
                             onClick={() => router.push(`/ProductDetailsPage/${product.id}`)}
                         >
                             <div className="relative overflow-hidden">
-                            <img
-                                src={imageUrl}
-                                alt={product.name}
-                                className="h-64 w-full object-cover group-hover:scale-110 transition-transform duration-500"
-                            />
+                          <Image
+  src={product.image}        // URL of your image
+  alt={product.name}         // Alt text for accessibility
+  width={400}                // Optional: set width
+  height={256}               // Optional: set height
+  className="h-64 w-full object-cover group-hover:scale-110 transition-transform duration-500"
+/>
                             {discountText && (
                                 <div className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-pink-600 text-white px-3 py-1 text-sm font-bold rounded-full shadow-lg">
                                 {discountText}

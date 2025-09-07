@@ -8,7 +8,7 @@ function Footer() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-lg font-semibold mb-4">🌳 WoodenStreet</h3>
+              <h3 className="text-lg font-semibold mb-4"> florestawud</h3>
              <p className="text-gray-300 text-sm mb-4">
 -                India s leading online furniture store offering premium wooden furniture
 +                India&apos;s leading online furniture store offering premium wooden furniture
@@ -44,7 +44,7 @@ function Footer() {
               <h4 className="font-semibold mb-4">Contact Info</h4>
               <div className="space-y-2 text-sm text-gray-300">
                 <p>📞 1800-123-4567</p>
-                <p>📧 help@woodenstreet.com</p>
+                <p>📧 help@florestawud.com</p>
                 <p>📍 100+ stores across India</p>
                 <p>🕐 24/7 Customer Support</p>
               </div>
@@ -52,7 +52,7 @@ function Footer() {
           </div>
           <div className="border-t border-gray-700 mt-8 pt-8 text-center">
             <p className="text-gray-300 text-sm">
-              © 2024 WoodenStreet. All rights reserved. | Privacy Policy | Terms & Conditions
+              © 2025 florestawud. All rights reserved. | Privacy Policy | Terms & Conditions
             </p>
           </div>
         </div>

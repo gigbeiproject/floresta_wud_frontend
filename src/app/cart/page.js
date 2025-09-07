@@ -372,7 +372,7 @@ const handlePlaceOrder = async () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3E5E84} mx-auto mb-4"></div>
           <p className="text-gray-600">Loading your cart...</p>
         </div>
       </div>
@@ -392,7 +392,7 @@ const handlePlaceOrder = async () => {
               setOrderPlaced(false);
               setCurrentStep('cart');
             }}
-            className="bg-amber-600 text-white px-6 py-3 rounded-lg hover:bg-amber-700 transition-colors"
+            className="bg-[#3E5E84} text-white px-6 py-3 rounded-lg hover:bg-amber-700 transition-colors"
           >
             Continue Shopping
           </button>
@@ -413,7 +413,7 @@ const handlePlaceOrder = async () => {
 
           <button
             onClick={() => window.history.back()}
-            className="bg-amber-600 text-white px-6 py-3 rounded-lg hover:bg-amber-700 transition-colors"
+            className="bg-[#3E5E84} text-white px-6 py-3 rounded-lg hover:bg-amber-700 transition-colors"
           >
             Continue Shopping
           </button>
@@ -432,7 +432,7 @@ const handlePlaceOrder = async () => {
             {['cart', 'address', 'payment'].map((step, index) => (
               <div key={step} className="flex items-center">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
-                  currentStep === step ? 'bg-amber-600 text-white' : 
+                  currentStep === step ? 'bg-[#3E5E84} text-white' : 
                   ['cart', 'address', 'payment'].indexOf(currentStep) > index ? 'bg-green-600 text-white' : 'bg-gray-300 text-gray-600'
                 }`}>
                   {index + 1}
@@ -461,7 +461,7 @@ const handlePlaceOrder = async () => {
                     <img src={item.image} alt={item.name} className="h-20 w-20 object-cover rounded-lg flex-shrink-0" />
                     <div className="flex-1 min-w-0">
                       <h3 className="text-lg font-semibold text-gray-900 truncate">{item.name}</h3>
-                      <p className="text-amber-600 font-bold">₹{item.price}</p>
+                      <p className="text-[#3E5E84} font-bold">₹{item.price}</p>
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -511,13 +511,13 @@ const handlePlaceOrder = async () => {
                   <hr className="border-gray-200" />
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total</span>
-                    <span className="text-amber-600">₹{total}</span>
+                    <span className="text-[#3E5E84}">₹{total}</span>
                   </div>
                 </div>
 
                 <button 
                   onClick={goToAddresses}
-                  className="w-full bg-amber-600 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors mb-3"
+                  className="w-full bg-[#3E5E84] text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors mb-3"
                 >
                   Proceed to Checkout
                 </button>
@@ -533,7 +533,7 @@ const handlePlaceOrder = async () => {
               <h1 className="text-3xl font-bold text-gray-900">Select Address</h1>
               <button
                 onClick={() => setCurrentStep('cart')}
-                className="text-amber-600 hover:text-amber-700 underline"
+                className="text-[#3E5E84} hover:text-amber-700 underline"
               >
                 Back to Cart
               </button>
@@ -541,7 +541,7 @@ const handlePlaceOrder = async () => {
 
             {addressLoading ? (
               <div className="text-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600 mx-auto mb-4"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#3E5E84} mx-auto mb-4"></div>
                 <p className="text-gray-600">Loading addresses...</p>
               </div>
             ) : (
@@ -552,7 +552,7 @@ const handlePlaceOrder = async () => {
                       key={address.id}
                       onClick={() => setSelectedAddress(address.id)}
                       className={`bg-white rounded-lg shadow-md p-6 cursor-pointer border-2 transition-colors ${
-                        selectedAddress === address.id ? 'border-amber-600' : 'border-transparent'
+                        selectedAddress === address.id ? 'border-[#3E5E84}' : 'border-transparent'
                       }`}
                     >
                       <div className="flex items-start justify-between">
@@ -580,7 +580,7 @@ const handlePlaceOrder = async () => {
                           type="radio"
                           checked={selectedAddress === address.id}
                           onChange={() => setSelectedAddress(address.id)}
-                          className="mt-1 text-amber-600"
+                          className="mt-1 text-[#3E5E84}"
                         />
                       </div>
                     </div>
@@ -609,14 +609,14 @@ const handlePlaceOrder = async () => {
                     <hr className="border-gray-200" />
                     <div className="flex justify-between text-lg font-bold">
                       <span>Total</span>
-                      <span className="text-amber-600">₹{total}</span>
+                      <span className="text-[#3E5E84]">₹{total}</span>
                     </div>
                   </div>
 
                   <button
                     onClick={goToPayment}
                     disabled={!selectedAddress}
-                    className="w-full bg-amber-600 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+                    className="w-full bg-[#3E5E84] text-white py-3 rounded-lg font-semibold hover:bg-[#3E5E84] transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
                   >
                     Continue to Payment
                   </button>
@@ -633,7 +633,7 @@ const handlePlaceOrder = async () => {
               <h1 className="text-3xl font-bold text-gray-900">Payment</h1>
               <button
                 onClick={() => setCurrentStep('address')}
-                className="text-amber-600 hover:text-amber-700 underline"
+                className="text-[#3E5E84} hover:text-amber-700 underline"
               >
                 Back to Address
               </button>
@@ -651,7 +651,7 @@ const handlePlaceOrder = async () => {
                         value="online"
                         checked={paymentMethod === 'online'}
                         onChange={(e) => setPaymentMethod(e.target.value)}
-                        className="text-amber-600"
+                        className="text-[#3E5E84}"
                       />
                       <CreditCard className="w-5 h-5 text-gray-500" />
                       <span className="font-medium">Online Payment (UPI, Cards, Wallet)</span>
@@ -663,7 +663,7 @@ const handlePlaceOrder = async () => {
                         value="cod"
                         checked={paymentMethod === 'cod'}
                         onChange={(e) => setPaymentMethod(e.target.value)}
-                        className="text-amber-600"
+                        className="text-[#3E5E84}"
                       />
                       <Truck className="w-5 h-5 text-gray-500" />
                       <span className="font-medium">Cash on Delivery</span>
@@ -714,14 +714,14 @@ const handlePlaceOrder = async () => {
                   <hr className="border-gray-200" />
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total</span>
-                    <span className="text-amber-600">₹{total}</span>
+                    <span className="text-[#3E5E84}">₹{total}</span>
                   </div>
                 </div>
 
                 <button
                   onClick={handlePlaceOrder}
                   disabled={orderProcessing}
-                  className="w-full bg-amber-600 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                  className="w-full bg-[#3E5E84] text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
                   {orderProcessing ? 'Processing...' : `Place Order - ₹${total}`}
                 </button>
@@ -789,7 +789,7 @@ const handlePlaceOrder = async () => {
                 </button>
                 <button
                   onClick={handleAddAddress}
-                  className="flex-1 px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors"
+                  className="flex-1 px-4 py-2 bg-[#3E5E84} text-white rounded-lg hover:bg-amber-700 transition-colors"
                 >
                   Add Address
                 </button>

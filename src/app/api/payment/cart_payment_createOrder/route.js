@@ -48,9 +48,9 @@ export async function POST(request) {
       for (const item of items) {
         const { productId, quantity } = item;
 
-        // Fetch product
+        // Fetch product with Discounted field
         const [products] = await connection.execute(
-          "SELECT id, name, price, stock, isDiscounted FROM product WHERE id = ? AND isArchived = 0",
+          "SELECT id, name, price, Discounted, stock FROM product WHERE id = ? AND isArchived = 0",
           [productId]
         );
 
@@ -59,12 +59,10 @@ export async function POST(request) {
 
         if (product.stock < quantity) throw new Error(`Only ${product.stock} units available for ${product.name}`);
 
-        // Calculate price
-        let unitPrice = product.price;
-        if (product.isDiscounted === "PERCENT_20") unitPrice = product.price * 0.8;
-        else if (product.isDiscounted === "PERCENT_30") unitPrice = product.price * 0.7;
-        else if (product.isDiscounted === "PERCENT_40") unitPrice = product.price * 0.6;
-        else if (product.isDiscounted === "PERCENT_50") unitPrice = product.price * 0.5;
+        // ✅ Use Discounted price if available, else fallback to price
+        let unitPrice = product.Discounted && product.Discounted > 0 
+          ? parseFloat(product.Discounted) 
+          : parseFloat(product.price);
 
         const totalPrice = unitPrice * quantity;
         totalAmount += totalPrice;
@@ -73,13 +71,12 @@ export async function POST(request) {
       }
 
       // ✅ Create Razorpay order
-    const razorpayOrder = await razorpay.orders.create({
-  amount: Math.round(totalAmount * 100), // paise
-  currency: "INR",
-  receipt: orderId,
-  notes: { orderId, userId },
-});
-
+      const razorpayOrder = await razorpay.orders.create({
+        amount: Math.round(totalAmount * 100), // paise
+        currency: "INR",
+        receipt: orderId,
+        notes: { orderId, userId },
+      });
 
       // ✅ Insert order (parent)
       await connection.execute(

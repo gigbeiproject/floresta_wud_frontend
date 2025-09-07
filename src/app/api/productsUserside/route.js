@@ -22,13 +22,16 @@ export async function GET() {
       productIds
     );
 
-    // 3. Attach images to products
-    const productsWithImages = products.map(product => ({
-      ...product,
-      images: images.filter(img => img.productId === product.id)
-    }));
+    // 3. Attach only the first image to each product
+    const productsWithFirstImage = products.map(product => {
+      const productImages = images.filter(img => img.productId === product.id);
+      return {
+        ...product,
+        image: productImages[0]?.url || null // <-- Only first image URL
+      };
+    });
 
-    return NextResponse.json({ products: productsWithImages });
+    return NextResponse.json({ products: productsWithFirstImage });
   } catch (error) {
     return NextResponse.json(
       { message: 'Server error', error: error.message },
